@@ -16,3 +16,7 @@ main{
     border: 20px;
     border-color: black;
 }
+
+.hide{
+    display: none;
+}

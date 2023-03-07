@@ -12,13 +12,7 @@
     <!-- timer html; place JS to create functionality -->
     <header id="quiz-timer">Time</header> <span id="time">0</span>
     <!-- quiz score functionality  -->
-    <h1 id="quiz-scores" class="hide-element">View Highscores</h1>
-    <!-- questions; starting paragraph -->
-<main id="questions"class="hide">
-    <h2 id="questions-heading"></h2>
-    <article id="question-choices" class="question-choices">
-    </article>
-</main>
+    <h1 id="quiz-scores" class="hide">View Highscores</h1>
 <article id="game-start" class='gamestart'>
     <h1>Adam's Coding Bootcamp Quiz!</h1>
     <p>Have a go at answering these questions! 
@@ -26,6 +20,13 @@
     your time and score!</p>
     <button id="start-quiz">Lets Begin!</button>
 </article>
+<!-- questions; starting paragraph -->
+<main id="questions" class="hide">
+    <h2 id="questions-heading"></h2>
+    <article id="question-choices" class="question-choices">
+    </article>
+</main>
+<!-- end game and submit  -->
 <section id="end-screen" class="hide">
     <h2>Completed!</h2>
     <p>Your score is<span id="end-score"></span>.</p>
@@ -34,7 +35,8 @@
       <button id="submit">Submit</button>
     </p>
 </section>
-<footer id="quiz-comments" class="quizcommentshide"></footer>
+<!-- wrong/correct message -->
+<footer id="quiz-comments" class="quizcomments hide"></footer>
 <script src="assets/script.js"></script>
 </body>
 </html>

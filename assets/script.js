@@ -33,18 +33,18 @@ var quizQuestions = [
 
 // declare global variables needed for entire game and questions array
 var currentQuestionNumber = 0;
-var time = quizQuestions.length * 25;
+var time = quizQuestions.length * 20;
 var timerCount;
 
 // declare element ids that will need to be selected throughout functions to create content
 var quizTimerElement = document.getElementById("time");
 var quizScoresElement = document.getElementById("quiz-scores");
 var questionChoicesElement = document.getElementById("question-choices");
-var quizQuestionsElement = document.getElementById("questions-heading")
 var quizSubmitButton = document.getElementById("submit");
 var playerInitialsElement = document.getElementById("initials");
 var startGameElement = document.getElementById("start-quiz");
 var quizCommentsElement = document.getElementById("quiz-comments")
+var questionIndex = document.getElementById("questions")
 
 
 // start quiz function
@@ -52,46 +52,30 @@ function startQuiz(){
     var quizBegin = document.getElementById('game-start');
     quizBegin.setAttribute("class", "hide");
     questionChoicesElement.removeAttribute("class")
+    questionIndex.removeAttribute('class')
     timerCount = setInterval(timeCount, 1000);
     quizTimerElement.textContent = time
 // call a question function
     startQuestion();
 }
-// timer function
-function timeCount() {
-    time--;
-    quizTimerElement.textContent = time;
-    if (time <= 0) {
-      quizComplete();
-    }
-}
-
-function quizComplete() {
-    clearInterval(timerCount);
-    var quizEnd = document.getElementById('end-screen');
-    quizEnd.removeAttribute('class');
-    var quizScoreComplete = document.getElementById('end-score');
-    quizScoreComplete.textContent = time;
-    quizQuestionsElement.setAttribute('class', 'hide');
-}
-
 
 // Questions function and go to next question
 function startQuestion(){
   var currentQuestion = quizQuestions[currentQuestionNumber];
   var quizQuestionsElement = document.getElementById("questions-heading");
 
-  quizQuestionsElement.textContent = quizQuestions.title;
-  questionChoicesElement.textContent = ' ';
+  quizQuestionsElement.textContent = currentQuestion.title;
+  questionChoicesElement.textContent = '';
 // add new choice and selection logic for creating options and adds a button for all choices
   for (var i = 0; i < currentQuestion.choices.length; i++){
     var questionChoice = currentQuestion.choices[i];
     var choiceElement = document.createElement('button');
 // setAttribute target classification and set the value of the button
-    choiceElement.setAttribute('class', 'question-choices');
+    choiceElement.setAttribute('class', 'choice');
     choiceElement.setAttribute('value', questionChoice);
 
-    choiceElement.textContent = i + 1 + '.' + questionChoice
+    choiceElement.textContent = i + 1 + '.' + questionChoice;
+
     questionChoicesElement.appendChild(choiceElement);
   }
 }
@@ -99,41 +83,64 @@ function startQuestion(){
 
 // Incorrect and correct functions - move to next question; need timer reset function - also creates return for none choice click
 function quizClickEvent(event) {
-  var quizSubmitButton = event.target;
-  if (!quizSubmitButton.matches('.question-choices')) {
+  var questionChoiceBtn = event.target;
+  if (!questionChoiceBtn.matches('.choice')) {
     return;
   }
-
-  if (quizSubmitButton.value !== questions[currentQuestionNumber].answer){
-
+  if (questionChoiceBtn.value !== quizQuestions[currentQuestionNumber].answer){
     time -= 10;
     if (time < 0) {
-    time = 0;
+      time = 0;
     }
+
     quizTimerElement.textContent = time;
 
     quizCommentsElement.textContent = "Sorry! incorrect"; 
 
-  } else {  quizCommentsElement.textContent = "Thats right!";
+  } else { 
+    quizCommentsElement.textContent = "Thats right!";
   }
   quizCommentsElement.setAttribute('class','quiz-comments');
-
-  timeRunout(function () { 
-    quizCommentsElement.setAttribute('class', 'quiz-commentshide');
+  // Set Timeout method calls a function after a number of milliseconds 1 second = 1000 milliseconds.
+  setTimeout(function () { 
+    quizCommentsElement.setAttribute('class', 'quiz-comments hide');
   }, 1000);
 
     currentQuestionNumber++;
-    if (time <= 0 || currentQuestionNumber === questions.length){
-    quizEnd();
+
+    if (time <= 0 || currentQuestionNumber === quizQuestions.length){
+    quizComplete();
   } else {
   // need to make to get the next question after click event
-    getQuestion();
+    startQuestion();
+
   }
   }
 
+// timer function
+function timeCount() {
+  time--;
+  quizTimerElement.textContent = time;
+  if (time <= 0) {
+    quizComplete();
+  }
+}
 
+// end of quiz function show completed screen
+function quizComplete() {
+    clearInterval(timerCount);
+    var quizEnd = document.getElementById('end-screen');
+    quizEnd.removeAttribute('class');
+
+    var quizScoreComplete = document.getElementById('end-score');
+    quizScoreComplete.textContent = time;
+
+    questionIndex.setAttribute('display', 'none');
+}
+console.log(quizComplete);
 
 // scores to local storage as string function
+
 // function scoreStorage(){
 //   var playerInitialsElement
 // }
@@ -146,6 +153,6 @@ function quizClickEvent(event) {
 
 
 // Run functions;
-questionChoicesElement.click = quizClickEvent;
+questionChoicesElement.onclick = quizClickEvent;
 
 startGameElement.onclick = startQuiz;
