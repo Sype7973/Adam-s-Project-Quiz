@@ -1,5 +1,5 @@
 var scoresOlEl = document.getElementById('highscores'); 
-
+var ClearResultsBtn = document.getElementById('clear')
 // var playerHighScore = JSON.parse(localStorage.getItem('highscores'));
 
 
@@ -18,6 +18,14 @@ function renderHighScores(){
     scoresOlEl.appendChild(li);
   }
   }
-  renderHighScores();
 
+function ClearResults(event){
+    ClearResultsBtn = event.target;
+    localStorage.clear();
+    scoresOlEl.textContent = '';
+}
+
+ClearResultsBtn.onclick = ClearResults;
+
+renderHighScores();
   

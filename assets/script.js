@@ -144,11 +144,12 @@ function quizComplete() {
 // scores to local storage as string function
 
 function scoreStorage(){
+  let quizHighScores =[];
+
   var playerInitials =  playerInitialsElement.value.trim();
   // checks to see initials input
-  // if (playerInitials) {
-    var quizHighScores = 
-    JSON.parse(window.localStorage.getItem('highscores')) || [];
+  if (playerInitials) {
+
     // create new score
     var playerScoreNew =  
     {
@@ -157,13 +158,21 @@ function scoreStorage(){
     };
     console.log(quizHighScores);
     console.log(playerScoreNew);
+
     quizHighScores.push(playerScoreNew);
     // move to highscores page
-    window.localStorage.setItem('highscores', JSON.stringify(playerScoreNew));
+    let mergedArray = [];
+    if (window.localStorage.getItem('highscores')) {
+      mergedArray = [...JSON.parse(window.localStorage.getItem('highscores')), ...quizHighScores];
+    } else {
+      mergedArray = [...quizHighScores];
+    }
+    
+    window.localStorage.setItem('highscores', JSON.stringify(mergedArray));
   
     window.location.href = 'highscores.html';
-} 
-// }
+  } 
+}
 // incase enter is used instead of mouse click
 function initialsKeyUpEvent(event){
     if (event.key === 'Enter'){

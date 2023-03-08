@@ -1,10 +1,14 @@
+.root{
+    --fontRobot: 'Press Start 2P', cursive;
+    --fontDisplay: 'Poiret One', cursive;
+}
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 body{
-    font-family: 'Montserrat', serif;
+    font-family: var(--fontDisplay);
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -14,9 +18,17 @@ body{
 }
 main{
     border: 20px;
+    
     border-color: black;
 }
 
 .hide{
     display: none;
+}
+.wrapper{
+    border: 5px;
+    padding: 80px;
+    border-style: solid;
+    border-color: rgb(130, 107, 141);
+    border-radius: 10%;
 }
