@@ -1,4 +1,4 @@
-// Declare quiz questions array globally
+// Declare quiz questions array globally - call variables and loop, don't try to index by number
 var quizQuestions = [
   {
     title: 'What does CSS stand for?:',
@@ -43,8 +43,10 @@ var questionChoicesElement = document.getElementById("question-choices");
 var quizSubmitButton = document.getElementById("submit");
 var playerInitialsElement = document.getElementById("initials");
 var startGameElement = document.getElementById("start-quiz");
-var quizCommentsElement = document.getElementById("quiz-comments")
-var questionIndex = document.getElementById("questions")
+var quizCommentsElement = document.getElementById("quiz-comments");
+var questionIndex = document.getElementById("questions");
+
+
 
 
 // start quiz function
@@ -86,13 +88,14 @@ function quizClickEvent(event) {
   var questionChoiceBtn = event.target;
   if (!questionChoiceBtn.matches('.choice')) {
     return;
-  }
+    }
   if (questionChoiceBtn.value !== quizQuestions[currentQuestionNumber].answer){
+     // penalty timer
     time -= 10;
     if (time < 0) {
       time = 0;
     }
-
+   
     quizTimerElement.textContent = time;
 
     quizCommentsElement.textContent = "Sorry! incorrect"; 
@@ -113,7 +116,7 @@ function quizClickEvent(event) {
   } else {
   // need to make to get the next question after click event
     startQuestion();
-
+    
   }
   }
 
@@ -131,28 +134,50 @@ function quizComplete() {
     clearInterval(timerCount);
     var quizEnd = document.getElementById('end-screen');
     quizEnd.removeAttribute('class');
-
     var quizScoreComplete = document.getElementById('end-score');
     quizScoreComplete.textContent = time;
 
-    questionIndex.setAttribute('display', 'none');
+    questionIndex.setAttribute('class', 'hide');
+
 }
-console.log(quizComplete);
 
 // scores to local storage as string function
 
-// function scoreStorage(){
-//   var playerInitialsElement
+function scoreStorage(){
+  var playerInitials =  playerInitialsElement.value.trim();
+  // checks to see initials input
+  // if (playerInitials) {
+    var quizHighScores = 
+    JSON.parse(window.localStorage.getItem('highscores')) || [];
+    // create new score
+    var playerScoreNew =  
+    {
+    score: time,
+    initials: playerInitials,
+    };
+    console.log(quizHighScores);
+    console.log(playerScoreNew);
+    quizHighScores.push(playerScoreNew);
+    // move to highscores page
+    window.localStorage.setItem('highscores', JSON.stringify(playerScoreNew));
+  
+    window.location.href = 'highscores.html';
+} 
 // }
+// incase enter is used instead of mouse click
+function initialsKeyUpEvent(event){
+    if (event.key === 'Enter'){
+    event.preventDefault();
+    scoreStorage();
+  }
+}
 
-// Highscores function
+// Run functions
 
+quizSubmitButton.onclick = scoreStorage;
 
+startGameElement.addEventListener('click', startQuiz);
 
-// move to highscores page
+questionChoicesElement.addEventListener('click', quizClickEvent);
 
-
-// Run functions;
-questionChoicesElement.onclick = quizClickEvent;
-
-startGameElement.onclick = startQuiz;
+playerInitialsElement.addEventListener('keyup', initialsKeyUpEvent);
