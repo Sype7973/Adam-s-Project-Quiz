@@ -1,4 +1,4 @@
-.root{
+:root{
     --fontRobot: 'Press Start 2P', cursive;
     --fontDisplay: 'Poiret One', cursive;
 }
@@ -6,9 +6,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
-body{
-    font-family: var(--fontDisplay);
+body{  
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -16,19 +16,184 @@ body{
     justify-content: center;
     align-items: center;
 }
-main{
-    border: 20px;
-    
-    border-color: black;
+
+body h1{
+    font-family: var(--fontDisplay);
+    font-size: 60px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+a{
+    text-decoration: none;
 }
 
+#quiz-scores{
+    padding: 20px;
+    font-size: 40px;
+    font-family: var(--fontDisplay);
+
+}
+
+#game-start{
+    margin: 20px;
+    font-family: var(--fontDisplay);
+    font-size: xx-large;
+    text-align: center;
+    border: 3px;
+    border-style: solid;
+    padding: 20px;
+    border-color: #5c5a8c;
+}
 .hide{
     display: none;
 }
 .wrapper{
-    border: 5px;
-    padding: 80px;
+    border: 8px;
+    padding: 200px;
     border-style: solid;
     border-color: rgb(130, 107, 141);
-    border-radius: 10%;
+    border-radius: 8%;
+    text-align: center;
 }
+.wrapper h1{
+    font-size: 30px;
+    font-family: var(--fontRobot);
+    color: rgb(4, 4, 180);
+}
+#highscores{
+    padding: 20px;
+    margin: 20px;
+    border-bottom: #5c5a8c;
+    border-style: solid;
+    font-family: var(--fontDisplay);
+    font-size: 50px;
+}
+
+#return{
+    padding: 10px;
+    margin: 20px;
+    font-size: 20px;
+    font-family: var(--fontRobot);
+    background-color: #5c5a8c;
+    color: white;
+}
+#return:hover{
+    background-color: white;
+    color: #5c5a8c;
+}
+
+#clear{
+    width: fit-content;
+    padding: 10px;
+    margin: 20px;
+    font-size: 20px;
+    font-family: var(--fontRobot);
+    background-color: #5c5a8c;
+    color: white;
+}
+#clear:hover{
+    background-color: white;
+    color: #5c5a8c;
+}
+
+#questions-heading{
+    font-family: var(--fontDisplay);
+    font-weight: bolder;
+    font-size: 30px;
+}
+#choice{
+    font-family: var(--fontDisplay);
+    font-size: larger;
+}
+
+#quiz-timer{
+    font-size: 30px;
+    font-family: var(--fontRobot);
+}
+
+#time{
+    margin-bottom: 200px;
+    font-size: 30px;
+    font-family: var(--fontRobot);
+    color: red;
+}
+#submit{
+    font-family: var(--fontRobot);
+    background-color: #5c5a8c;
+    color: white;
+    padding: 10px;
+}
+
+#submit:hover{
+    background-color: white;
+    color:  #5c5a8c;
+}
+
+#end-screen{
+    font-family: var(--fontDisplay);
+    font-size: 30px;
+    padding: 5px;
+
+}
+
+#start-quiz{
+    font-family: var(--fontRobot);
+    font-size: 20px;
+    margin: 20px;
+    background-color: #5c5a8c;
+    padding: 20px;
+    border-radius: 50%;
+    color: white;
+}
+#start-quiz:hover{
+    background-color: white;
+    color:  #5c5a8c;
+}
+
+
+#question-choices{
+    padding: 20px;
+    margin: 20px;
+}
+
+#question-choices .choice{
+    padding: 10px;
+    margin: 20px;
+    background-color: black;
+    color: white;
+    font-size: large;
+    font-family: var(--fontDisplay);
+}
+
+#question-choices .choice:hover{
+    scale: 150%;
+    background-color: white;
+    color: black;
+}
+
+#question-choices .choice:focus{
+    scale: 150%;
+    background-color:  green;
+    color: black;
+}
+
+#quiz-comments{
+    font-family: var(--fontRobot);
+    font-size: xx-large;
+    padding: 20px;
+}
+
+@media screen and (max-width: 992px) {
+    .card {
+      width: 50%;
+    }
+
+  }
+  
+
+  @media screen and (max-width: 768px) {
+    .card {
+      width: 100%;
+    }
+  }
+  
